@@ -22,27 +22,8 @@ A solução proposta utiliza uma arquitetura baseada em múltiplos nós ROS2:
 A partir dessa estrutura, o sistema consegue enviar comandos de velocidade linear e angular para controlar a trajetória da tartaruga no simulador.
 
 ### 2.3 Arquitetura do Sistema
-+----------------+
-| Command Node   |
-+----------------+
-        |
-        |
-        v
- /control_command
-        |
-        v
-+----------------+
-| Controller Node|
-+----------------+
-        |
-        |
-        v
-/turtle1/cmd_vel
-        |
-        v
-+----------------+
-|   Turtlesim    |
-+----------------+
+
+`Cmd Node` ----- /control_command -----> `Cntrl Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
 
 ## 3. Metodologia de desenvolvimento
 
@@ -75,7 +56,66 @@ Além disso, foi utilizada uma abordagem de versionamento contínuo utilizando G
 | CP8        | Revisão e possíveis extensões  | Avaliação do problema 2            | 23/09    |
 
 ## Histórico de Desenvolvimento
+### Checkpoint 1 - Configuração do ambiente
 
+Objetivo:
+Instalar o ambiente de desenvolvimento e estruturas auxiliares
+
+Resultado:
+- Instalação do Ubuntu 22.04 (Versão que é aceita pelo ROS2 Humble)
+- Instalação do VsCode, compilador do c++, git, CMake, GDB e pyhton (já pensando no problema 2)
+- Instalação do ROS2 Humble
+
+Evidência:  
+![alt text](image.png)
+
+### Checkpoint 2 - Estudo dos conceitos ROS2
+
+Objetivo:
+Entender o projeto, baseado em estudos do material disponibilizado e outros meios
+
+Resultado:
+- Playlist ROS2 Tutorials - ROS2 Humble For Beginners
+- Documentação oficial do ROS2 Humble
+
+Evidência:  
+![alt text](image-1.png)
+
+### Checkpoint 3 - Estruturação do projeto
+
+Objetivo:
+Estruturar o plano de metas e a metodologia utilizada na resolução do problema 1, baseado no que foi estudado e no tempo disponível
+
+Resultado:
+- Criação do github
+- Tempo curto -> Entregáveis com data limite
+- Priorizar problema 1, mas ter margem para possível problema 2
+- Plano escolhido: Princípios de desenvolvimento incremental e arquitetura top-down
+
+Evidência:  
+![alt text](image-2.png)
+
+### Checkpoint 4 - Desenvolvimento do primeiro nó
+
+Objetivo: Construir o primeiro nó com os conhecimentos adquiridos
+
+Resultado:
+- Árvore dos arquivos
+- Nó criado: turtle_controller
+- Publisher criado: /turtle1/cmd_vel
+- Mensagem utilizada: geometry_msgs/Twist
+- Frequência de mensagens: 500ms
+
+Evidência:  
+![alt text](image-3.png)
+
+### Checkpoint 5 - Comunicação entre nós
+
+### Checkpoint 6 - Melhoria e testes
+
+### Checkpoint 7 - Documentação final
+
+### Checkpoint 8 - Revisão e possíveis extensões
 
 
 ## 7. Desafios Encontrados
