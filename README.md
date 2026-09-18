@@ -67,7 +67,7 @@ Resultado:
 - Instalação do ROS2 Humble
 
 Evidência:  
-![alt text](image.png)
+![alt text](images/image.png)
 
 ### Checkpoint 2 - Estudo dos conceitos ROS2
 
@@ -79,7 +79,7 @@ Resultado:
 - Documentação oficial do ROS2 Humble
 
 Evidência:  
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ### Checkpoint 3 - Estruturação do projeto
 
@@ -93,7 +93,7 @@ Resultado:
 - Plano escolhido: Princípios de desenvolvimento incremental e arquitetura top-down
 
 Evidência:  
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 ### Checkpoint 4 - Desenvolvimento do primeiro nó
 
@@ -107,7 +107,7 @@ Resultado:
 - Frequência de mensagens: 500ms
 
 Evidência:  
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 ### Checkpoint 5 - Comunicação entre nós
 
