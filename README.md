@@ -23,7 +23,7 @@ A partir dessa estrutura, o sistema consegue enviar comandos de velocidade linea
 
 ### 2.3 Arquitetura do Sistema
 
-`Cmd Node` ----- /control_command -----> `Cntrl Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
+`send_msg Node` ----- /control_command -----> `turtle Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
 
 ## 3. Metodologia de desenvolvimento
 
@@ -95,7 +95,7 @@ Resultado:
 Evidência:  
 ![alt text](images/image-2.png)
 
-### Checkpoint 4 - Desenvolvimento do primeiro nó
+### Checkpoint 4.1 - Desenvolvimento do primeiro nó
 
 Objetivo: Construir o primeiro nó com os conhecimentos adquiridos
 
@@ -108,6 +108,31 @@ Resultado:
 
 Evidência:  
 ![alt text](images/image-3.png)
+
+### Checkpoint 4.2 - Correção de erros
+
+Objetivo: Corrigir erros detectados após melhor entendimento do projeto.
+
+Resultado:
+- Reconstrução do nó
+- Construção dos subscriptions e publishers
+- Timer para reenviar send_velocity
+- Criação da lógica de giro e movimentação da tartaruga
+
+Evidência:  
+![alt text](images/image-5.png)
+
+### Checkpoint 4.3 - Alinhamento da movimentação
+
+Objetivo: Corrigir e alinhar o movimento torto da tartaruga
+
+Resultado:
+- Uso do client teletransporte
+- Lógica para movimento parecer contínuo 
+- Escolha de parâmetros corretos
+
+Evidência:  
+![alt text](images/image-6.png)
 
 ### Checkpoint 5 - Comunicação entre nós
 
