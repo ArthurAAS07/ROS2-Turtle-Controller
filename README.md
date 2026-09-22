@@ -23,7 +23,7 @@ A partir dessa estrutura, o sistema consegue enviar comandos de velocidade linea
 
 ### 2.3 Arquitetura do Sistema
 
-`send_msg Node` ----- /control_command -----> `turtle Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
+`send_msg Node` ----- /comandos -----> `turtle Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
 
 ## 3. Metodologia de desenvolvimento
 
@@ -134,7 +134,26 @@ Resultado:
 Evidência:  
 ![alt text](images/image-6.png)
 
-### Checkpoint 5 - Comunicação entre nós
+### Checkpoint 5.1 - Comunicação entre nós
+Objetivo: Fazer os nós conversarem através do tópico /comandos
+
+Resultado:
+- Input dos comandos no send_msg
+- Publisher dos comandos em /comandos
+
+Evidência:  
+![alt text](images/image-7.png)
+
+
+### Checkpoint 5.2 - Conserto de bugs
+Objetivo: Barrar que a tartaruga sobrescreva um comando, enquanto finaliza um movimento
+
+Resultado:
+- Barreira para não realizar comandos em send_velocity (lock_)
+- Retestes para manter movimento contínuo 
+
+Evidência:  
+![alt text](images/image-8.png)
 
 ### Checkpoint 6 - Melhoria e testes
 

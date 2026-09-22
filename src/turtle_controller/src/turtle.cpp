@@ -14,10 +14,11 @@ class Turtle : public rclcpp::Node {
             cmd_subscription_ = this->create_subscription<std_msgs::msg::String>("/comandos", 10, std::bind(&Turtle::command_callback, this, std::placeholders::_1));
             pose_subscription_ = this->create_subscription<turtlesim::msg::Pose>("/turtle1/pose", 10, std::bind(&Turtle::pose_callback, this, std::placeholders::_1));
             teleport_client_ = this->create_client<turtlesim::srv::TeleportAbsolute>("/turtle1/teleport_absolute");
-            timer_ = this->create_wall_timer(50ms, std::bind(&Turtle::send_velocity, this));
+            timer_ = this->create_wall_timer(125ms, std::bind(&Turtle::send_velocity, this));
         }
     private:
-        void command_callback(const std_msgs::msg::String::SharedPtr msg) {
+    void command_callback(const std_msgs::msg::String::SharedPtr msg) {
+        if (lock_) {
             if (msg->data == "right") {
                 target_x_ = x_ + 1.0;
                 target_y_ = y_ ;
@@ -37,7 +38,9 @@ class Turtle : public rclcpp::Node {
             }
             rotating_ = true;
             moving_ = false;
-            RCLCPP_INFO(this->get_logger(), "Comando recebido: %s", msg->data.c_str());
+            lock_ = false;
+        }
+        RCLCPP_INFO(this->get_logger(), "Comando recebido: %s", msg->data.c_str());
         }
 
         void pose_callback(const turtlesim::msg::Pose::SharedPtr msg) {
@@ -53,7 +56,7 @@ class Turtle : public rclcpp::Node {
 
             if (rotating_) {
 
-                if (std::abs(theta_ - target_theta_) < 0.15) {
+                if (std::abs(theta_ - target_theta_) < 0.2) {
                     rotating_ = false;
                     moving_ = true;
                     msg.angular.z = 0.0;
@@ -76,7 +79,7 @@ class Turtle : public rclcpp::Node {
 
             } else if (moving_) {
 
-                if (std::abs(x_ - target_x_) < 0.15 && std::abs(y_ - target_y_) < 0.15) {
+                if (std::hypot(target_x_ - x_, target_y_ - y_) < 0.2) {
                     moving_ = false;
                     msg.linear.x = 0.0;
                     msg.angular.z = 0.0;
@@ -86,6 +89,8 @@ class Turtle : public rclcpp::Node {
                     request->y = target_y_;
                     request->theta = target_theta_;
                     teleport_client_->async_send_request(request);
+
+                    lock_ = true;
 
                     RCLCPP_INFO(this->get_logger(), "Destino alcançado: x=%.2f y=%.2f", x_, y_);
                 } else {
@@ -112,6 +117,7 @@ class Turtle : public rclcpp::Node {
         double target_theta_ = 0.0;
         bool moving_ = false;
         bool rotating_ = false;
+        bool lock_ = true;
 };
 
 int main(int argc, char * argv[]) {

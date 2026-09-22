@@ -22,9 +22,18 @@ ament_target_dependencies(turtle
   turtlesim
 )
 
+# Executável do nó send_msg
+add_executable(send_msg src/send_msg.cpp)
+
+ament_target_dependencies(send_msg
+  rclcpp
+  std_msgs
+)
+
 # Instala o executável
 install(TARGETS
   turtle
+  send_msg
   DESTINATION lib/${PROJECT_NAME}
 )
 
