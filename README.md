@@ -265,7 +265,11 @@ Objetivo: Revisar todo o projeto, verificar erros e analisar problema 2
 
 Resultado:
 - Teste em um computador diferente, que não esteja com o ambiente formatado
+- Implementação para uso com Docker
 - Problema 2: Provavelmente não haverá tempo suficiente para a conclusão do mesmo, porém decidi iniciá-lo e fazer o máximo possível sem a parte da documentação.
+
+Evidência:
+![alt text](images/image-12.png)
 
 
 ## 7. Desafios Encontrados
@@ -337,7 +341,7 @@ Foi criado o script `run.sh` para rodar todos os comandos em um único terminal.
 
 E se algum computador que baixasse o projeto, não tivesse as dependências necessárias para rodar os nós?
 
-Enquanto o `run.sh` fica responsável apenas por executar, foi criado o `install.sh` para preparar o ambiente e instalar as dependências necessárias.
+Enquanto o `run.sh` fica responsável apenas por executar, foi criado o `install.sh` para preparar o ambiente e instalar as dependências necessárias. Posteriormente, uma maneira mais fácil foi adicionada: execução com Docker.
 
 
 
