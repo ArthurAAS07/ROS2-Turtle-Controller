@@ -25,10 +25,11 @@ A partir dessa estrutura, o sistema consegue enviar comandos de velocidade linea
 
 `send_msg Node` ----- /comandos -----> `turtle Node` ----- /turtle1/cmd_vel -----> `Turtlesim`  
 
-### 2.4 Compilar e executar
+### 2.4.1 Compilar e executar (Manualmente)
+
 #### Passo 1 - Instalar ROS2 Humble e Turtlesim  
 
-Consulte a documentação oficial
+No Ubuntu 22.04, consulte a documentação oficial e instale o ROS2 Humble:
 > ROS2 Humble: https://docs.ros.org/en/jazzy/Installation.html  
 > Turtlesim: https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html
 
@@ -44,6 +45,24 @@ Consulte a documentação oficial
 
 #### Passo 5 - Rodar o pacote  
 > `./run.sh`  
+
+### 2.4.2 Compilar e executar (Docker)
+
+O projeto também pode ser executado utilizando Docker. Essa opção permite reproduzir o ambiente do projeto com ROS 2 e suas dependências dentro de um container.
+
+É necessário ter:
+
+- Docker instalado e em execução;
+- Ubuntu/Linux com suporte à interface gráfica do TurtleSim.
+
+No diretório raiz do projeto, execute:
+
+> `docker build -t turtle-controller -f docker/Dockerfile .`
+
+Após construir a imagem, execute:
+
+> `./docker/run-docker.sh`
+
 
 ### 2.5 Como usar
 
@@ -69,7 +88,6 @@ Depois:
 > `[turtle]: Coordenadas: (x, y)` 
 
 Cada comando anda exatamente uma unidade do plano cartesiano.
-
 
 ## 3. Metodologia de desenvolvimento
 

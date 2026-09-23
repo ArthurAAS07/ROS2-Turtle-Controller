@@ -2,6 +2,11 @@
 
 set -e
 
+# Diretório raiz do workspace
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+cd "$ROOT_DIR"
+
 echo "======================================"
 echo "   Configuração do Turtle Controller"
 echo "======================================"
@@ -54,8 +59,9 @@ echo "Compilando o projeto..."
 
 colcon build
 
-#Dá permissão de execução ao run.sh
-chmod +x run.sh
+# Dá permissão de execução aos scripts
+chmod +x scripts/run.sh
+chmod +x scripts/install.sh
 
 echo ""
 echo "======================================"
@@ -63,4 +69,4 @@ echo " Projeto configurado com sucesso!"
 echo "======================================"
 echo ""
 echo "Para executar:"
-echo "./run.sh"
+echo "./scripts/run.sh"
