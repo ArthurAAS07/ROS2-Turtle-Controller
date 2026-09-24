@@ -33,7 +33,7 @@ class Turtle : public rclcpp::Node {
             next_command();
             
             // Printa no console o comando recebido
-            RCLCPP_INFO(this->get_logger(), "Comando recebido: %s", msg->data.c_str());
+            // RCLCPP_INFO(this->get_logger(), "Comando recebido: %s", msg->data.c_str());
         }
         
         // Função que processa o próximo comando na fila de comandos
@@ -69,6 +69,7 @@ class Turtle : public rclcpp::Node {
             // Verifica se o destino está dentro da tela do turtlesim (0.5, 0.5) a (11.5, 11.5)
             if (target_x_ < 0.5 || target_x_ > 11.5 || target_y_ < 0.5 || target_y_ > 11.5) {
                 RCLCPP_INFO(this->get_logger(),"Comando ignorado: destino fora da tela");
+                RCLCPP_INFO(this->get_logger(), "Coordenadas: (%.0f, %.0f)", x_-5.54444, y_-5.54444);
                 next_command();
                 return;
             }
@@ -163,7 +164,9 @@ class Turtle : public rclcpp::Node {
                         theta_ = target_theta_;
                         
                         // Printa no console as coordenadas atuais da tartaruga na tela do turtlesim
-                        RCLCPP_INFO(this->get_logger(), "Coordenadas: (%.0f, %.0f)", x_-5.54444, y_-5.54444);
+                        if (command_queue_.empty()) {
+                            RCLCPP_INFO(this->get_logger(), "Coordenadas: (%.0f, %.0f)", x_-5.54444, y_-5.54444);
+                        }
                         lock_ = false; // Libera o robô para receber novos comandos
                         next_command();
                     });  

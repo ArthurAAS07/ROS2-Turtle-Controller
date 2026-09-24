@@ -17,7 +17,7 @@ class SendMsg : public rclcpp::Node {
             msg.data = command;
             publisher_->publish(msg);
 
-            RCLCPP_INFO(this->get_logger(), "Comando enviado: %s", msg.data.c_str());
+            // RCLCPP_INFO(this->get_logger(), "Comando enviado: %s", msg.data.c_str());
         }
     private:
         // Publisher para enviar comandos para o tópico /comandos
