@@ -46,32 +46,49 @@ class Turtle : public rclcpp::Node {
             // Pega o próximo comando da fila e remove ele da fila
             command = command_queue_.front();
             command_queue_.pop();
+            
+            // Define a distância que a tartaruga deve percorrer com base no número de comandos iguais consecutivos
+            pace_ = 1.0; 
+            while (!command_queue_.empty() && command == command_queue_.front()) {
+                command_queue_.pop();
+                pace_ += 1.0;
+            }
 
             // Define as coordenadas alvo e o ângulo alvo com base no comando recebido
             if (command == "right") {
-                target_x_ = x_ + 1.0;
+                target_x_ = x_ + pace_;
                 target_y_ = y_ ;
                 target_theta_ = 0.0;
             } else if (command == "left") {
-                target_x_ = x_ - 1.0;
+                target_x_ = x_ - pace_;
                 target_y_ = y_;
                 target_theta_ = M_PI;
             } else if (command == "up") {
                 target_x_ = x_;
-                target_y_ = y_ + 1.0;
+                target_y_ = y_ + pace_;
                 target_theta_ = M_PI / 2.0;
             } else if (command == "down") {
                 target_x_ = x_;
-                target_y_ = y_ - 1.0;
+                target_y_ = y_ - pace_;
                 target_theta_ = -M_PI / 2.0;
             }
 
             // Verifica se o destino está dentro da tela do turtlesim (0.5, 0.5) a (11.5, 11.5)
             if (target_x_ < 0.5 || target_x_ > 11.5 || target_y_ < 0.5 || target_y_ > 11.5) {
-                RCLCPP_INFO(this->get_logger(),"Comando ignorado: destino fora da tela");
-                RCLCPP_INFO(this->get_logger(), "Coordenadas: (%.0f, %.0f)", x_-5.54444, y_-5.54444);
-                next_command();
-                return;
+                if (pace_ > 1.0) {
+                    int num = 0;
+                    if (target_x_ < 0.5) { while (target_x_ < 0.5) { target_x_ += 1.0; num++; }
+                    } else if (target_x_ > 11.5) { while (target_x_ > 11.5) { target_x_ -= 1.0; num++; }
+                    } else if (target_y_ < 0.5) { while (target_y_ < 0.5) { target_y_ += 1.0; num++; }
+                    } else if (target_y_ > 11.5) { while (target_y_ > 11.5) { target_y_ -= 1.0; num++; }
+                    }
+                    RCLCPP_INFO(this->get_logger(),"%d Comandos ignorados: destino fora da tela", num);
+                } else {
+                    RCLCPP_INFO(this->get_logger(),"Comando ignorado: destino fora da tela");
+                    RCLCPP_INFO(this->get_logger(), "Coordenadas: (%.0f, %.0f)", x_-5.54444, y_-5.54444);
+                    next_command();
+                    return;
+                }
             }
 
             // Define o estado do robô como rotacionando e não movendo para atualizar send_velocity()
@@ -192,10 +209,12 @@ class Turtle : public rclcpp::Node {
         double target_x_ = 0.0;      // Coordenada x alvo da tartaruga
         double target_y_ = 0.0;      // Coordenada y alvo da tartaruga
         double target_theta_ = 0.0;  // Ângulo alvo da tartaruga
+        double pace_ = 0.0;          // Distância que a tartaruga deve percorrer em cada comando
         bool moving_ = false;        // Flag para indicar se a tartaruga está se movendo
         bool rotating_ = false;      // Flag para indicar se a tartaruga está rotacionando
         bool lock_ = false;          // Flag para indicar se a tartaruga está bloqueada para receber novos comandos
         bool init = true;            // Flag para indicar se é a primeira vez que a pose da tartaruga é recebida
+
 };
 
 int main(int argc, char * argv[]) {
