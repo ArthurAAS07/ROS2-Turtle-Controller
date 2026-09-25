@@ -40,11 +40,11 @@ No Ubuntu 22.04, consulte a documentação oficial e instale o ROS2 Humble:
 > `cd ROS2-Turtle-Controller`
 
 #### Passo 4 - Dar permissão e instalar as depências  
-> `chmod +x install.sh`  
-> `./install.sh`
+> `chmod +x scripts/install.sh`  
+> `./scripts/install.sh`
 
 #### Passo 5 - Rodar o pacote  
-> `./run.sh`  
+> `./scripts/run-turtle-controller.sh`  
 
 ### 2.4.2 Compilar e executar (Docker)
 
@@ -57,11 +57,7 @@ O projeto também pode ser executado utilizando Docker. Essa opção permite rep
 
 No diretório raiz do projeto, execute:
 
-> `docker build -t turtle-controller -f docker/Dockerfile .`
-
-Após construir a imagem, execute:
-
-> `./docker/run-docker.sh`
+> `./docker/run-turtle-controller-docker.sh`
 
 
 ### 2.5 Como usar
@@ -335,13 +331,13 @@ Para solucionar esse problema, depois que o teletransporte é concluído, as var
 
 Inicialmente, cada componente precisava ser executado manualmente em terminais separados. O que dificultava a compilação e execução de alguém que gostaria de testar o projeto.
 
-Foi criado o script `run.sh` para rodar todos os comandos em um único terminal. Isso permitiu que a execução passasse a ser feita apenas por um comando: `./run.sh`
+Foi criado o script `run-turtle-controller.sh` para rodar todos os comandos em um único terminal. Isso permitiu que a execução passasse a ser feita apenas por um comando: `./run-turtle-controller.sh`
 
 #### 10. Separação entre instalação e execução
 
 E se algum computador que baixasse o projeto, não tivesse as dependências necessárias para rodar os nós?
 
-Enquanto o `run.sh` fica responsável apenas por executar, foi criado o `install.sh` para preparar o ambiente e instalar as dependências necessárias. Posteriormente, uma maneira mais fácil foi adicionada: execução com Docker.
+Enquanto o `run-turtler-controller.sh` fica responsável apenas por executar, foi criado o `install.sh` para preparar o ambiente e instalar as dependências necessárias. Posteriormente, uma maneira mais fácil foi adicionada: execução com Docker.
 
 
 

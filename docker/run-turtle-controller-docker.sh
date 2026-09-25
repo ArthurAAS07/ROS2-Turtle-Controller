@@ -17,21 +17,12 @@ if ! docker info &> /dev/null; then
     exit 1
 fi
 
-# Constrói a imagem caso ela ainda não exista
-if ! docker image inspect turtle-controller &> /dev/null; then
-    echo "Imagem não encontrada."
-    echo "Construindo imagem..."
+echo "Construindo imagem..."
 
-    docker build \
-        -t turtle-controller \
-        -f docker/Dockerfile \
-        .
-
-    if [ $? -ne 0 ]; then
-        echo "Erro ao construir a imagem."
-        exit 1
-    fi
-fi
+docker build \
+    -t turtle-controller \
+    -f docker/Dockerfile \
+    .
 
 # Permite acesso à interface gráfica
 xhost +local:docker > /dev/null
