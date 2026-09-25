@@ -34,18 +34,19 @@ private:
         msg.robot_id = robot_id_;
         msg.distance = distance_distribution_(generator_);
 
-        // Loga a mensagem informando o ID do robô e a distância até a bola
-        RCLCPP_INFO(this->get_logger(), "Robô %d | Distância até a bola: %.2f", msg.robot_id, msg.distance);
         
         // Incrementa o contador de publicações e aguarda 1 segundo a cada 3 publicações
-        publisher_count_++;
-        if (publisher_count_ == 3) {
-            sleep(1);  // Aguarda 1 segundo antes de publicar novamente
-            publisher_count_ = 0;
-        }
+        // publisher_count_++;
+        // if (publisher_count_ == 3) {
+        //     sleep(1);  // Aguarda 1 segundo antes de publicar novamente
+        //     publisher_count_ = 0;
+        // }
 
         // Publica a mensagem no tópico "/deteccoes"
         publisher_->publish(msg);
+
+        // Loga a mensagem informando o ID do robô e a distância até a bola
+        RCLCPP_INFO(this->get_logger(), "Robô %d | Distância até a bola: %.2f", msg.robot_id, msg.distance);
     }
 
     int robot_id_;
