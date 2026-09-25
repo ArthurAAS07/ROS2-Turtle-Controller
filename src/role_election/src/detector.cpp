@@ -21,24 +21,30 @@ public:
         // Publica uma detecção a cada 1 segundo
         timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&Detector::publish_detection, this));
 
+        // Loga uma mensagem informando que o detector foi iniciado
         RCLCPP_INFO(this->get_logger(), "Detector iniciado - Robô %d", robot_id_);
     }
 
 private:
     void publish_detection() {
+        // Cria uma mensagem do tipo Detection
         role_election::msg::Detection msg;
 
+        // Gera uma distância aleatória entre 0.5 e 10.0 metros
         msg.robot_id = robot_id_;
         msg.distance = distance_distribution_(generator_);
 
-        
+        // Loga a mensagem informando o ID do robô e a distância até a bola
         RCLCPP_INFO(this->get_logger(), "Robô %d | Distância até a bola: %.2f", msg.robot_id, msg.distance);
         
+        // Incrementa o contador de publicações e aguarda 1 segundo a cada 3 publicações
         publisher_count_++;
         if (publisher_count_ == 3) {
             sleep(1);  // Aguarda 1 segundo antes de publicar novamente
             publisher_count_ = 0;
         }
+
+        // Publica a mensagem no tópico "/deteccoes"
         publisher_->publish(msg);
     }
 
@@ -54,10 +60,13 @@ private:
 };
 
 int main(int argc, char * argv[]) {
+    // Inicializa o ROS 2
     rclcpp::init(argc, argv);
 
+    // Cria um nó Detector e inicia o loop de execução
     rclcpp::spin(std::make_shared<Detector>());
 
+    // Encerra o ROS 2
     rclcpp::shutdown();
 
     return 0;

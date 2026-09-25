@@ -7,12 +7,14 @@
 
 class Monitor : public rclcpp::Node {
 public:
+    // Construtor da classe Monitor
     Monitor() : Node("monitor") {
         subscription_ = this->create_subscription<role_election::msg::Role>("/papeis", 10, std::bind(&Monitor::role_callback, this, std::placeholders::_1));
     }
 
 private:
     void role_callback(const role_election::msg::Role::SharedPtr msg) {
+        // Armazena o papel atribuído a cada robô em um mapa
         roles_[msg->robot_id] = msg->role;
         updated_robots_.insert(msg->robot_id);
 
@@ -29,12 +31,14 @@ private:
     std::set<int> updated_robots_;
 };
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
+    // Inicializa o ROS 2
     rclcpp::init(argc, argv);
 
+    // Cria um nó Monitor e inicia o loop de execução
     rclcpp::spin(std::make_shared<Monitor>());
 
+    // Encerra o ROS 2
     rclcpp::shutdown();
 
     return 0;
