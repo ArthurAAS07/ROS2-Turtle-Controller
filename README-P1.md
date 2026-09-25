@@ -261,6 +261,7 @@ Objetivo: Revisar todo o projeto, verificar erros e analisar problema 2
 
 Resultado:
 - Teste em um computador diferente, que não esteja com o ambiente formatado
+- Última implementação para manter a fluidez do movimento
 - Implementação para uso com Docker
 - Problema 2: Provavelmente não haverá tempo suficiente para a conclusão do mesmo, porém decidi iniciá-lo e fazer o máximo possível sem a parte da documentação.
 
@@ -339,5 +340,11 @@ E se algum computador que baixasse o projeto, não tivesse as dependências nece
 
 Enquanto o `run-turtler-controller.sh` fica responsável apenas por executar, foi criado o `install.sh` para preparar o ambiente e instalar as dependências necessárias. Posteriormente, uma maneira mais fácil foi adicionada: execução com Docker.
 
+#### 11. Movimentação engasgada
 
+O problema 1 já tinha sido decretado concluído, readme quase pronto, então últimos testes foram feitos.
+
+Por conta do teleporte, uma movimentação em linha reta com mais de um comando repetido, fazia a tartaruga realizar leves travadas no meio do caminho, mesmo a posição estando correta. O travamento no meio do caminho era quase como um "engasgo" apesar de sutil.
+
+Para solucionar esse desafio, foi implementado uma variável inteira chamada `pace_` que representa quantas casas a tartaruga irá se mover. Para cada comando repetido `pace_` é incrementada dentro de um loop até que o próximo comando da fila não seja mais repetido. Esse cálculo é feito antes de definir a posição alvo, que é encontrada somando a posição atual com o `pace_`. Porém, se o alvo ultrapassar o limite da tela ele é recalculado em outro loop e redefinido contando quantos comandos foram desconsiderados.
 
