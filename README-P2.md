@@ -58,6 +58,8 @@ Os papéis escolhidos são publicados no tópico ```/papeis```
 
 O nó `monitor` recebe essas mensagens e apresenta o resultado de forma legível no terminal.
 
+Foi utilizado um parâmetro ROS 2 chamado robot_id para identificar cada instância do nó detector. Dessa forma, o mesmo executável pode ser iniciado múltiplas vezes, cada uma representando um robô diferente, sem necessidade de duplicar código. Como o identificador do robô é uma configuração fixa da instância durante sua execução, o uso de parâmetros é adequado para esse caso e torna a solução mais reutilizável e escalável.
+
 ## Compilar e Executar (Manualmente)
 
 Escolher um diretório e clonar o repositório  
