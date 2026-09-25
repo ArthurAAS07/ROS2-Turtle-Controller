@@ -83,4 +83,4 @@ Rodar o pacote
 
 No diretório raiz do projeto, execute:
 
-> `./docker/run-turtle-controller-docker.sh`
+> `./docker/run-role-election-docker.sh`
